@@ -30,3 +30,6 @@ crash.*.log
 *.key
 id_rsa
 id_ed25519
+
+# Local Terraform backend settings
+/terraform/backend.local.hcl

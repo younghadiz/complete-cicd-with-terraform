@@ -1,0 +1,32 @@
+# Editors and macOS
+.idea/
+.vscode/
+.DS_Store
+
+# Maven build output
+target/
+
+# Terraform generated files and sensitive state
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+*.tfplan
+*.tfplan.*
+crash.log
+crash.*.log
+*.tfvars
+*.tfvars.json
+!*.example.tfvars
+!*.example.tfvars.json
+
+# Local environment files
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# Private keys
+*.pem
+*.key
+id_rsa
+id_ed25519

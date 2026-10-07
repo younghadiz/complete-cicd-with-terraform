@@ -1,0 +1,4 @@
+**
+!Dockerfile
+!target/
+!target/java-maven-app-*.jar

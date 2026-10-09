@@ -63,14 +63,39 @@ fi
 
 docker compose -f docker-compose.yaml up -d --no-build
 
+verify_method="${VERIFY_METHOD:-host}"
+
+case "$verify_method" in
+  host|container) ;;
+  *)
+    printf 'VERIFY_METHOD must be host or container.\n' >&2
+    exit 1
+    ;;
+esac
+
+probe_container="$(
+  docker compose -f docker-compose.yaml ps -q java-maven-app
+)"
+test -n "$probe_container"
+
+fetch_homepage() {
+  if [ "$verify_method" = "container" ]; then
+    docker exec "$probe_container" \
+      /bin/busybox wget -q -T 5 -O - \
+      http://127.0.0.1:8080/ > "$response_file"
+  else
+    curl --fail --silent \
+      --connect-timeout 2 \
+      --max-time 5 \
+      "http://127.0.0.1:${APP_PORT}/" \
+      -o "$response_file"
+  fi
+}
+
 ready=false
 
 for attempt in {1..30}; do
-  if curl --fail --silent \
-    --connect-timeout 2 \
-    --max-time 5 \
-    "http://127.0.0.1:${APP_PORT}/" \
-    -o "$response_file"; then
+  if fetch_homepage; then
 
     if grep -Fq \
       '<h1>Welcome to Java Maven Application</h1>' \

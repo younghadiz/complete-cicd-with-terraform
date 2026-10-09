@@ -82,6 +82,7 @@ export APP_BIND_ADDRESS="127.0.0.1"
 export APP_PORT="18080"
 export COMPOSE_PROJECT_NAME="terraform-ci-check-$$"
 export PULL_IMAGE="false"
+export VERIFY_METHOD="container"
 
 cleanup() {
   docker compose -f docker-compose.yaml down

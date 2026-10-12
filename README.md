@@ -1,5 +1,27 @@
 # Complete CI/CD with Terraform
 
+## Verified cleanup — October 11, 2026 (America/Vancouver)
+
+The application was successfully deployed and verified before teardown.
+The deployment evidence describes that completed demonstration; the application
+endpoint is no longer live.
+
+- Application Terraform: 14 resources destroyed; state is empty.
+- EC2 instance: termination verified.
+- Application root EBS volume: deletion verified.
+- Backend Terraform: 5 resources destroyed; state is empty.
+- S3 state bucket: deletion verified after removing all object versions and delete markers.
+- Jenkins Droplet: deletion confirmed by the operator.
+- Dedicated Jenkins AWS user: both access keys verified Inactive.
+- Capstone Docker Hub token: revocation confirmed by the operator.
+- Private backups: all 15 S3 object versions and bootstrap state preserved locally.
+- GitHub/GitLab repositories and published Docker Hub images retained.
+
+Earlier references to running infrastructure or pending cleanup describe the
+deployment phase. This record supersedes those status statements.
+DigitalOcean snapshot, volume, and billing inventory has not been independently
+verified. Inactive IAM keys and the dedicated IAM user/policy remain in AWS.
+
 A Jenkins pipeline that builds a Spring Boot application, verifies an AMD64 Docker image, publishes it to Docker Hub, provisions an AWS EC2 server with Terraform, and deploys the exact published image digest with SSH and Docker Compose.
 
 **Verified on October 11, 2026 (America/Vancouver):** initial deployment and repeat deployment both succeeded. The first run created 14 AWS resources; the second made no infrastructure changes and deployed a new image on the same instance.
